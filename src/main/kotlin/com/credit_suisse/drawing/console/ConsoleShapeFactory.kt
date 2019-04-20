@@ -15,7 +15,7 @@ class ConsoleShapeFactory : ShapeFactory {
         require(c.x1 > 0 && c.y1 > 0 && c.x2 > 0 && c.y2 > 0) { "Coordinates must be positive" }
         require(c.x1 == c.x2 || c.y1 == c.y2) { "Only horizontal and vertical lines are supported currently" }
         return if (c.x1 < c.x2 || c.y1 < c.y2) {
-           Line(Point(c.x1, c.y1), Point(c.x2, c.y2))
+            Line(Point(c.x1, c.y1), Point(c.x2, c.y2))
         } else {
             Line(Point(c.x2, c.y2), Point(c.x1, c.y1))
         }

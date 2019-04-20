@@ -87,7 +87,22 @@ class ConsoleCanvas(
     }
 
     override fun bucketFill(fill: BucketFill) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val x = fill.x
+        val y = fill.y
+        require(contain(Point(x, y))) { "Point x=$x y=$y doesn't fit canvas" }
+        bucketFill(x - 1, y - 1, state[y - 1][x - 1], fill.c)
+    }
+
+    private fun bucketFill(x: Int, y: Int, original: Char, c: Char) {
+        state[y][x] = c
+        if (y - 1 >= 0 && state[y - 1][x] == original)
+            bucketFill(x, y - 1, original, c)
+        if (y + 1 < height && state[y + 1][x] == original)
+            bucketFill(x, y + 1, original, c)
+        if (x - 1 >= 0 && state[y][x - 1] == original)
+            bucketFill(x - 1, y, original, c)
+        if (x + 1 < width && state[y][x + 1] == original)
+            bucketFill(x + 1, y, original, c)
     }
 
     override fun close() {
