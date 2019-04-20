@@ -8,7 +8,7 @@ const val HORIZONTAL_BORDER = '-'
 const val VERTICAL_BORDER = '|'
 
 class ConsoleRenderer(
-    out: OutputStream
+    out: OutputStream = System.out
 ) : Renderer {
 
     override fun close() {

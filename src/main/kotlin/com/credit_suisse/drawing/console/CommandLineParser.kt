@@ -10,14 +10,14 @@ class CommandLineParser {
     fun parse(line: String): Command {
         // todo test trim, multispaces
         val args = line.trim().split(SPACE_REGEX)
-        if (args.isEmpty()) return NeedHelp()
+        if (args.isEmpty()) return PrintHelp()
         return when (args.first()) {
             "C" -> parseCreateCanvas(args.drop(1))
             "L" -> parseNewLine(args.drop(1))
             "R" -> parseNewRectangle(args.drop(1))
             "B" -> parseBucketFill(args.drop(1))
             "Q" -> Quit()
-            else -> NeedHelp()
+            else -> PrintHelp()
         }
     }
 
@@ -41,7 +41,7 @@ class CommandLineParser {
     }
 
     private fun parseCreateCanvas(args: List<String>): Command {
-        if (args.size != 2) return NeedHelp()
+        if (args.size != 2) return PrintHelp()
         return try {
             val w = Integer.parseInt(args[0])
             val h = Integer.parseInt(args[1])
@@ -49,12 +49,12 @@ class CommandLineParser {
         } catch (e: NumberFormatException) {
             // todo log error
             println(e.message)
-            NeedHelp()
+            PrintHelp()
         }
     }
 
     private fun parseNewLine(args: List<String>): Command {
-        if (args.size != 4) return NeedHelp()
+        if (args.size != 4) return PrintHelp()
         return try {
             val x1 = Integer.parseInt(args[0])
             val y1 = Integer.parseInt(args[1])
@@ -64,12 +64,12 @@ class CommandLineParser {
         } catch (e: NumberFormatException) {
             // todo log error
             println(e.message)
-            NeedHelp()
+            PrintHelp()
         }
     }
 
     private fun parseNewRectangle(args: List<String>): Command {
-        if (args.size != 4) return NeedHelp()
+        if (args.size != 4) return PrintHelp()
         return try {
             val x1 = Integer.parseInt(args[0])
             val y1 = Integer.parseInt(args[1])
@@ -79,13 +79,13 @@ class CommandLineParser {
         } catch (e: NumberFormatException) {
             // todo log error
             println(e.message)
-            NeedHelp()
+            PrintHelp()
         }
     }
 
     private fun parseBucketFill(args: List<String>): Command {
-        if (args.size != 3) return NeedHelp()
-        if (args[2].length != 1) return NeedHelp()
+        if (args.size != 3) return PrintHelp()
+        if (args[2].length != 1) return PrintHelp()
         // todo check if char printable
         val c = args[2].first()
         return try {
@@ -95,7 +95,7 @@ class CommandLineParser {
         } catch (e: NumberFormatException) {
             // todo log error
             println(e.message)
-            NeedHelp()
+            PrintHelp()
         }
     }
 }
