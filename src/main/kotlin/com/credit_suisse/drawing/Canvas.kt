@@ -1,10 +1,24 @@
 package com.credit_suisse.drawing
 
-interface Canvas {
+/*
+
+ Example of canvas 9 x 4 (width = 9, height = 4):
+
+          x
+          123456789
+         -----------
+    y  1 |         |
+       2 |         |
+       3 |         |
+       4 |         |
+         -----------
+*/
+
+interface Canvas: Iterable<Iterable<Char>>{
     val width: Int
     val height: Int
-    fun newLine(x1: Int, y1: Int, x2: Int, y2: Int)
-    fun newRectangle(x1: Int, y1: Int, x2: Int, y2: Int)
-    fun bucketFill(x: Int, y: Int, c: Char)
+    fun contain(p: Point): Boolean
+    fun add(shape: Shape)
+    fun bucketFill(fill: BucketFill)
     fun close()
 }

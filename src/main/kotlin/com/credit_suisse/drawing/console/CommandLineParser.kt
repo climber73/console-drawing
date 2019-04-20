@@ -1,13 +1,15 @@
-package com.credit_suisse.drawing.cli
+package com.credit_suisse.drawing.console
 
 import com.credit_suisse.drawing.*
 import java.lang.NumberFormatException
 
+val SPACE_REGEX = "\\s+".toRegex()
+
 class CommandLineParser {
 
     fun parse(line: String): Command {
-        // todo test trim
-        val args = line.trim().split(" ")
+        // todo test trim, multispaces
+        val args = line.trim().split(SPACE_REGEX)
         if (args.isEmpty()) return NeedHelp()
         return when (args.first()) {
             "C" -> parseCreateCanvas(args.drop(1))
@@ -46,6 +48,7 @@ class CommandLineParser {
             CreateCanvas(w, h)
         } catch (e: NumberFormatException) {
             // todo log error
+            println(e.message)
             NeedHelp()
         }
     }
@@ -57,10 +60,10 @@ class CommandLineParser {
             val y1 = Integer.parseInt(args[1])
             val x2 = Integer.parseInt(args[2])
             val y2 = Integer.parseInt(args[3])
-            // todo add check (vertical/horizontal)
-            NewLine(x1, y1, x2, y2)
+            AddLine(x1, y1, x2, y2)
         } catch (e: NumberFormatException) {
             // todo log error
+            println(e.message)
             NeedHelp()
         }
     }
@@ -72,9 +75,10 @@ class CommandLineParser {
             val y1 = Integer.parseInt(args[1])
             val x2 = Integer.parseInt(args[2])
             val y2 = Integer.parseInt(args[3])
-            NewRectangle(x1, y1, x2, y2)
+            AddRect(x1, y1, x2, y2)
         } catch (e: NumberFormatException) {
             // todo log error
+            println(e.message)
             NeedHelp()
         }
     }
@@ -90,6 +94,7 @@ class CommandLineParser {
             BucketFill(x, y, c)
         } catch (e: NumberFormatException) {
             // todo log error
+            println(e.message)
             NeedHelp()
         }
     }

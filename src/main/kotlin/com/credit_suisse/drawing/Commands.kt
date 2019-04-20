@@ -1,26 +1,27 @@
 package com.credit_suisse.drawing
 
-interface Command {
-}
+interface Command
+
+sealed class AddShapeCommand : Command
 
 data class CreateCanvas(
     val width: Int,
     val height: Int
 ) : Command
 
-data class NewLine(
+data class AddLine(
     val x1: Int,
     val y1: Int,
     val x2: Int,
     val y2: Int
-) : Command
+) : AddShapeCommand()
 
-data class NewRectangle(
+data class AddRect(
     val x1: Int,
     val y1: Int,
     val x2: Int,
     val y2: Int
-) : Command
+) : AddShapeCommand()
 
 data class BucketFill(
     val x: Int,
