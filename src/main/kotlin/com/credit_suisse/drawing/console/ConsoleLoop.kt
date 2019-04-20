@@ -4,7 +4,7 @@ import com.credit_suisse.drawing.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
-class CommandLineLoop(
+class ConsoleLoop(
     private val parser: CommandLineParser,
     private val renderer: ConsoleRenderer,
     private val factory: ConsoleShapeFactory
@@ -24,7 +24,7 @@ class CommandLineLoop(
                         is CreateCanvas -> createCanvas(cmd)
                         is AddShapeCommand -> addShape(cmd)
                         is BucketFill -> bucketFill(cmd)
-                        is NeedHelp -> printHelp()
+                        is PrintHelp -> printHelp()
                         is Quit -> return
                     }
                 } catch (e: IllegalArgumentException) {

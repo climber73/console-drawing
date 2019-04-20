@@ -3,9 +3,9 @@ package com.credit_suisse.drawing.console
 fun main() {
     val parser = CommandLineParser()
     val shapeFactory = ConsoleShapeFactory()
-    val consoleRenderer = ConsoleRenderer(System.out)
+    val consoleRenderer = ConsoleRenderer()
     consoleRenderer.use { renderer ->
-        CommandLineLoop(parser, renderer, shapeFactory)
+        ConsoleLoop(parser, renderer, shapeFactory)
             .run()
     }
 }
