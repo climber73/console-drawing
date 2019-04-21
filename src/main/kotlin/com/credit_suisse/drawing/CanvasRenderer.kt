@@ -1,7 +1,5 @@
 package com.credit_suisse.drawing
 
-import java.io.Closeable
-
 /**
  *
  * A generic canvas renderer
