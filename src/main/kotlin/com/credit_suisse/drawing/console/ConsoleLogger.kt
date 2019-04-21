@@ -38,4 +38,8 @@ class ConsoleLogger(
         writer.newLine()
         writer.flush()
     }
+
+    override fun close() {
+        writer.close()
+    }
 }

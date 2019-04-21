@@ -1,6 +1,8 @@
 package com.credit_suisse.drawing
 
-interface Logger {
+import java.io.Closeable
+
+interface Logger : Closeable {
     fun print(s: String)
     fun print(c: Char)
     fun println(s: String)

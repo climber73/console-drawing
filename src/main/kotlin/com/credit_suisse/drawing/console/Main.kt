@@ -5,10 +5,11 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 fun main() {
-    val logger = getLogger()
     input().use { input ->
-        val loop = ConsoleApplication(input, logger)
-        loop.run()
+        logger().use { logger ->
+            val loop = ConsoleApplication(input, logger)
+            loop.run()
+        }
     }
 }
 
@@ -17,7 +18,7 @@ private fun input(): BufferedReader {
     return BufferedReader(streamReader)
 }
 
-private fun getLogger(): Logger {
+private fun logger(): Logger {
     val writer = System.out.bufferedWriter()
     return ConsoleLogger(writer)
 }
