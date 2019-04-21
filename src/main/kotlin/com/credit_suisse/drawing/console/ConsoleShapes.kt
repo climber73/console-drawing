@@ -4,15 +4,18 @@ import com.credit_suisse.drawing.Line
 import com.credit_suisse.drawing.Point
 import com.credit_suisse.drawing.Rect
 
+const val BLANK_COLOR = ' '
+
 data class ConsolePoint(
     override val x: Int,
-    override val y: Int
-) : Point<Char>
+    override val y: Int,
+    override val attr: Char = BLANK_COLOR
+) : Point<Char, Int>
 
 data class ConsoleLine(
     override val p1: ConsolePoint,
     override val p2: ConsolePoint
-) : Line<Char> {
+) : Line<Char, Int> {
     override fun points(): List<ConsolePoint> {
         return if (p1.x == p2.x) {
             (p1.y..p2.y).map { y -> ConsolePoint(p1.x, y) }
@@ -25,7 +28,7 @@ data class ConsoleLine(
 data class ConsoleRect(
     override val p1: ConsolePoint,
     override val p2: ConsolePoint
-) : Rect<Char> {
+) : Rect<Char, Int> {
     override fun points(): List<ConsolePoint> {
         return when {
             p1.x == p2.x -> (p1.y..p2.y).map { y -> ConsolePoint(p1.x, y) }

@@ -6,12 +6,16 @@ const val MAX_WIDTH = 80
 const val MAX_HEIGHT = 80
 
 const val DEFAULT_COLOR = 'x'
-const val BLANK_COLOR = ' '
 
 class ConsoleCanvas(
-    override val width: Int,
-    override val height: Int
-) : Canvas<Char> {
+    override val minX: Int,
+    override val minY: Int,
+    override val maxX: Int,
+    override val maxY: Int
+) : Canvas<Char, Int> {
+
+    override val width: Int = maxX - minX + 1
+    override val height: Int = maxY - minY + 1
 
     private val state: Array<Array<Char>> // array of rows (not columns), so Y is first coordinate
 
@@ -21,7 +25,7 @@ class ConsoleCanvas(
         state = Array(height) { Array(width) { BLANK_COLOR } }
     }
 
-    override fun contain(p: Point<Char>): Boolean {
+    override fun contain(p: Point<Char, Int>): Boolean {
         return p.x <= width && p.y <= height
     }
 
@@ -39,18 +43,19 @@ class ConsoleCanvas(
         }
     }
 
-    override fun add(shape: Shape<Char>) {
+    override fun add(shape: Shape<Char, Int>) {
         require(shape.isFit(this)) { "$shape doesn't fit canvas" }
         for (p in shape.points()) {
             state[p.y-1][p.x-1] = DEFAULT_COLOR
         }
     }
 
-    override fun bucketFill(fill: BucketFill) {
-        val x = fill.x
-        val y = fill.y
-        require(contain(ConsolePoint(x, y))) { "Point x=$x y=$y doesn't fit canvas" }
-        bucketFill(x - 1, y - 1, state[y - 1][x - 1], fill.c)
+    override fun bucketFill(p: Point<Char, Int>) {
+        require(contain(p)) { "Point $p doesn't fit canvas" }
+        val x = p.x
+        val y = p.y
+        val original = state[y - 1][x - 1]
+        bucketFill(x - 1, y - 1, original, p.attr)
     }
 
     private fun bucketFill(x: Int, y: Int, original: Char, c: Char) {

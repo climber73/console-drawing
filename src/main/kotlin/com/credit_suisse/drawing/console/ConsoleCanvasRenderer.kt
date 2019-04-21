@@ -7,12 +7,9 @@ import java.lang.StringBuilder
 const val HORIZONTAL_BORDER = '-'
 const val VERTICAL_BORDER = '|'
 
-class ConsoleCanvasRenderer : CanvasRenderer<String, Char> {
+class ConsoleCanvasRenderer : CanvasRenderer<String, Char, Int> {
 
-    override fun close() {
-    }
-
-    override fun render(c: Canvas<Char>?): String {
+    override fun render(c: Canvas<Char, Int>?): String {
         if (c == null) return ""
         val sb = StringBuilder()
         sb.append(horizontalBorder(c))
@@ -30,7 +27,7 @@ class ConsoleCanvasRenderer : CanvasRenderer<String, Char> {
         return sb.toString()
     }
 
-    private fun horizontalBorder(c: Canvas<Char>) = "${HORIZONTAL_BORDER * (c.width + 2)}\n"
+    private fun horizontalBorder(c: Canvas<Char, Int>) = "${HORIZONTAL_BORDER * (c.width + 2)}\n"
 
     private operator fun Char.times(n: Int) = this.toString().repeat(n)
 }

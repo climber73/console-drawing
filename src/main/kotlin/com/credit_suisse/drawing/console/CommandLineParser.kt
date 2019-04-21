@@ -10,7 +10,6 @@ class CommandLineParser(
 ) {
 
     fun parse(line: String): Command {
-        // todo test trim, multispaces
         val args = line.trim().split(SPACE_REGEX)
         if (args.isEmpty()) return PrintHelp()
         return when (args.first()) {
