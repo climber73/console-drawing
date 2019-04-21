@@ -2,35 +2,35 @@ package com.credit_suisse.drawing.console
 
 import com.credit_suisse.drawing.Canvas
 import com.credit_suisse.drawing.CanvasRenderer
-import com.credit_suisse.drawing.Logger
+import java.lang.StringBuilder
 
 const val HORIZONTAL_BORDER = '-'
 const val VERTICAL_BORDER = '|'
 
-class ConsoleCanvasRenderer(
-    private val logger: Logger
-) : CanvasRenderer {
+class ConsoleCanvasRenderer : CanvasRenderer<String> {
 
     override fun close() {
     }
 
-    override fun render(c: Canvas?) {
-        if (c == null) return
-        logger.println(horizontalBorder(c))
+    override fun render(c: Canvas?): String {
+        if (c == null) return ""
+        val sb = StringBuilder()
+        sb.append(horizontalBorder(c))
         //todo simplify:
         val yIterator = c.iterator()
         while (yIterator.hasNext()) {
-            logger.print(VERTICAL_BORDER)
+            sb.append(VERTICAL_BORDER)
             val xIterator = yIterator.next().iterator()
             while (xIterator.hasNext()) {
-                logger.print(xIterator.next())
+                sb.append(xIterator.next())
             }
-            logger.println(VERTICAL_BORDER)
+            sb.append("$VERTICAL_BORDER\n")
         }
-        logger.println(horizontalBorder(c))
+        sb.append(horizontalBorder(c))
+        return sb.toString()
     }
 
-    private fun horizontalBorder(c: Canvas) = HORIZONTAL_BORDER * (c.width + 2)
+    private fun horizontalBorder(c: Canvas) = "${HORIZONTAL_BORDER * (c.width + 2)}\n"
 
     private operator fun Char.times(n: Int) = this.toString().repeat(n)
 }

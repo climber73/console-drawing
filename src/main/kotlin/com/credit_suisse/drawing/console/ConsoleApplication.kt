@@ -10,12 +10,12 @@ class ConsoleApplication(
     private val factory: ShapeFactory = ConsoleShapeFactory()
 ) {
 
-    private val renderer: CanvasRenderer = ConsoleCanvasRenderer(logger)
+    private val renderer: CanvasRenderer<String> = ConsoleCanvasRenderer()
     private var canvas: Canvas? = null
 
     fun run() {
         while (true) {
-            renderer.render(canvas)
+            logger.print(renderer.render(canvas))
             logger.println("Enter command (H for help):")
             val line = input.readLine()
             try {
