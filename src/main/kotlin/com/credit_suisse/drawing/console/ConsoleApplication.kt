@@ -7,11 +7,11 @@ class ConsoleApplication(
     private val input: BufferedReader,
     private val logger: Logger,
     private val parser: CommandLineParser = CommandLineParser(logger),
-    private val factory: ShapeFactory = ConsoleShapeFactory()
+    private val factory: ShapeFactory<Char> = ConsoleShapeFactory()
 ) {
 
-    private val renderer: CanvasRenderer<String> = ConsoleCanvasRenderer()
-    private var canvas: Canvas? = null
+    private val renderer: CanvasRenderer<String, Char> = ConsoleCanvasRenderer()
+    private var canvas: Canvas<Char>? = null
 
     fun run() {
         while (true) {

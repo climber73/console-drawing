@@ -3,20 +3,17 @@ package com.credit_suisse.drawing.console
 import com.credit_suisse.drawing.Line
 import com.credit_suisse.drawing.Point
 import com.credit_suisse.drawing.Rect
-import com.credit_suisse.drawing.Shape
-
-interface ConsoleShape : Shape
 
 data class ConsolePoint(
     override val x: Int,
     override val y: Int
-) : Point, ConsoleShape
+) : Point<Char>
 
 data class ConsoleLine(
-    override val p1: Point,
-    override val p2: Point
-) : Line, ConsoleShape {
-    override fun points(): List<Point> {
+    override val p1: ConsolePoint,
+    override val p2: ConsolePoint
+) : Line<Char> {
+    override fun points(): List<ConsolePoint> {
         return if (p1.x == p2.x) {
             (p1.y..p2.y).map { y -> ConsolePoint(p1.x, y) }
         } else {
@@ -26,15 +23,15 @@ data class ConsoleLine(
 }
 
 data class ConsoleRect(
-    override val p1: Point,
-    override val p2: Point
-) : Rect, ConsoleShape {
-    override fun points(): List<Point> {
+    override val p1: ConsolePoint,
+    override val p2: ConsolePoint
+) : Rect<Char> {
+    override fun points(): List<ConsolePoint> {
         return when {
             p1.x == p2.x -> (p1.y..p2.y).map { y -> ConsolePoint(p1.x, y) }
             p1.y == p2.y -> (p1.x..p2.x).map { x -> ConsolePoint(x, p1.y) }
             else -> {
-                val list = ArrayList<Point>()
+                val list = ArrayList<ConsolePoint>()
                 (p1.y..p2.y).forEach { y ->
                     list.add(ConsolePoint(p1.x, y))
                     list.add(ConsolePoint(p2.x, y))

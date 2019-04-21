@@ -21,7 +21,7 @@ class ConsoleCanvas(
         state = Array(height) { Array(width) { BLANK_COLOR } }
     }
 
-    override fun contain(p: Point): Boolean {
+    override fun contain(p: Point<Char>): Boolean {
         return p.x <= width && p.y <= height
     }
 
@@ -39,9 +39,8 @@ class ConsoleCanvas(
         }
     }
 
-    override fun add(shape: Shape) {
+    override fun add(shape: Shape<Char>) {
         require(shape.isFit(this)) { "$shape doesn't fit canvas" }
-        require(shape is ConsoleShape) { "$shape isn't supported in console canvas" }
         for (p in shape.points()) {
             state[p.y-1][p.x-1] = DEFAULT_COLOR
         }
