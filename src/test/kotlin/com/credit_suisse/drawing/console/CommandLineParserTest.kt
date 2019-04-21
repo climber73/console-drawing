@@ -1,8 +1,6 @@
 package com.credit_suisse.drawing.console
 
 import com.credit_suisse.drawing.Command
-import com.credit_suisse.drawing.CreateCanvas
-import com.credit_suisse.drawing.PrintHelp
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

@@ -1,12 +1,15 @@
 package com.credit_suisse.drawing.console
 
-import com.credit_suisse.drawing.*
+import com.credit_suisse.drawing.AddShapeCommand
+import com.credit_suisse.drawing.Shape
+import com.credit_suisse.drawing.ShapeFactory
 
 class ConsoleShapeFactory : ShapeFactory<Char, Int> {
     override fun shape(cmd: AddShapeCommand): Shape<Char, Int> {
         return when (cmd) {
             is AddLine -> createLine(cmd)
             is AddRect -> createRect(cmd)
+            else -> throw IllegalArgumentException("Don't know what to do with $cmd")
         }
     }
 
