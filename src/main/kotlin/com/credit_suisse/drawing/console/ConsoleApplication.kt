@@ -18,23 +18,25 @@ class ConsoleApplication(
             logger.print(renderer.render(canvas))
             logger.println("Enter command (H for help):")
             val line = input.readLine()
+            var cmd: Command = PrintHelp()
             try {
-                when (val cmd = parser.parse(line)) {
+                cmd = parser.parse(line)
+                when (cmd) {
                     is CreateCanvas -> createCanvas(cmd)
                     is AddShapeCommand -> addShape(cmd)
                     is BucketFill -> bucketFill(cmd)
-                    is PrintHelp -> printHelp()
+                    is PrintHelp -> printHelp(cmd)
                     is Quit -> return
                 }
             } catch (e: IllegalArgumentException) {
                 logger.error(e.message)
-                printHelp()
+                printHelp(PrintHelp(cmd::class.java))
             }
         }
     }
 
-    private fun printHelp() {
-        parser.printHelp()
+    private fun printHelp(cmd: PrintHelp) {
+        parser.printHelp(cmd.cmdType)
     }
 
     private fun createCanvas(cmd: CreateCanvas) {

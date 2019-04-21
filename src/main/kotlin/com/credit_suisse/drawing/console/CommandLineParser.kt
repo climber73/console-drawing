@@ -15,47 +15,38 @@ class CommandLineParser(
         if (args.isEmpty()) return PrintHelp()
         return when (args.first()) {
             "C" -> parseCreateCanvas(args.drop(1))
-            "L" -> parseNewLine(args.drop(1))
-            "R" -> parseNewRectangle(args.drop(1))
+            "L" -> parseAddLine(args.drop(1))
+            "R" -> parseAddRect(args.drop(1))
             "B" -> parseBucketFill(args.drop(1))
             "Q" -> Quit()
             else -> PrintHelp()
         }
     }
 
-    fun printHelp() {
-        // todo write to smth general
-        val s = """
-            |Command         Description
-            |C w h           Should create a new canvas of width w and height h.
-            |L x1 y1 x2 y2   Should create a new line from (x1,y1) to (x2,y2). Currently only
-            |                horizontal or vertical lines are supported. Horizontal and vertical lines
-            |                will be drawn using the 'x' character.
-            |R x1 y1 x2 y2   Should create a new rectangle, whose upper left corner is (x1,y1) and
-            |                lower right corner is (x2,y2). Horizontal and vertical lines will be drawn
-            |                using the 'x' character.
-            |B x y c         Should fill the entire area connected to (x,y) with "colour" c. The
-            |                behavior of this is the same as that of the "bucket fill" tool in paint
-            |                programs.
-            |Q               Should quit the program.
-        """.trimIndent()
-        logger.println(s)
+    fun printHelp(cmdType: Class<out Command>) {
+        when (cmdType) {
+            CreateCanvas::class.java -> logger.println("$HELP_HEADER\n$C")
+            AddLine::class.java -> logger.println("$HELP_HEADER\n$L")
+            AddRect::class.java -> logger.println("$HELP_HEADER\n$R")
+            BucketFill::class.java -> logger.println("$HELP_HEADER\n$B")
+            else -> logger.println(FULL_HELP)
+        }
     }
 
     private fun parseCreateCanvas(args: List<String>): Command {
-        if (args.size != 2) return PrintHelp()
+        if (args.size != 2) return PrintHelp(CreateCanvas::class.java)
         return try {
             val w = Integer.parseInt(args[0])
             val h = Integer.parseInt(args[1])
             CreateCanvas(w, h)
         } catch (e: NumberFormatException) {
             logger.error(e.message)
-            PrintHelp()
+            PrintHelp(CreateCanvas::class.java)
         }
     }
 
-    private fun parseNewLine(args: List<String>): Command {
-        if (args.size != 4) return PrintHelp()
+    private fun parseAddLine(args: List<String>): Command {
+        if (args.size != 4) return PrintHelp(AddLine::class.java)
         return try {
             val x1 = Integer.parseInt(args[0])
             val y1 = Integer.parseInt(args[1])
@@ -64,12 +55,12 @@ class CommandLineParser(
             AddLine(x1, y1, x2, y2)
         } catch (e: NumberFormatException) {
             logger.error(e.message)
-            PrintHelp()
+            PrintHelp(AddLine::class.java)
         }
     }
 
-    private fun parseNewRectangle(args: List<String>): Command {
-        if (args.size != 4) return PrintHelp()
+    private fun parseAddRect(args: List<String>): Command {
+        if (args.size != 4) return PrintHelp(AddRect::class.java)
         return try {
             val x1 = Integer.parseInt(args[0])
             val y1 = Integer.parseInt(args[1])
@@ -78,13 +69,12 @@ class CommandLineParser(
             AddRect(x1, y1, x2, y2)
         } catch (e: NumberFormatException) {
             logger.error(e.message)
-            PrintHelp()
+            PrintHelp(AddRect::class.java)
         }
     }
 
     private fun parseBucketFill(args: List<String>): Command {
-        if (args.size != 3) return PrintHelp()
-        if (args[2].length != 1) return PrintHelp()
+        if (args.size != 3 || args[2].length != 1) return PrintHelp(BucketFill::class.java)
         // todo check if char printable
         val c = args[2].first()
         return try {
@@ -93,7 +83,33 @@ class CommandLineParser(
             BucketFill(x, y, c)
         } catch (e: NumberFormatException) {
             logger.error(e.message)
-            PrintHelp()
+            PrintHelp(BucketFill::class.java)
         }
     }
 }
+
+private val HELP_HEADER = """
+            |Command         Description
+        """.trimMargin()
+private val C = """
+            |C w h           Create a new canvas of width w and height h.
+        """.trimMargin()
+private val L = """
+            |L x1 y1 x2 y2   Create a new line from (x1,y1) to (x2,y2). Currently only
+            |                horizontal or vertical lines are supported. Horizontal and vertical lines
+            |                will be drawn using the 'x' character.
+        """.trimMargin()
+private val R = """
+            |R x1 y1 x2 y2   Create a new rectangle, whose upper left corner is (x1,y1) and
+            |                lower right corner is (x2,y2). Horizontal and vertical lines will be drawn
+            |                using the 'x' character.
+        """.trimMargin()
+private val B = """
+            |B x y c         Fill the entire area connected to (x,y) with "colour" c. The
+            |                behavior of this is the same as that of the "bucket fill" tool in paint
+            |                programs.
+        """.trimMargin()
+private val Q = """
+            |Q               Quit the program.
+        """.trimMargin()
+private val FULL_HELP = "$HELP_HEADER\n$C\n$L\n$R\n$B\n$Q"
