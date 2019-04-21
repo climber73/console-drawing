@@ -26,7 +26,7 @@ class ConsoleCanvas(
     }
 
     override fun contain(p: Point<Char, Int>): Boolean {
-        return p.x <= width && p.y <= height
+        return p.x in (minX..maxX) && p.y in (minY..maxY)
     }
 
     override fun iterator(): Iterator<Iterable<Char>> {

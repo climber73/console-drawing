@@ -1,10 +1,10 @@
 package com.credit_suisse.drawing.console
 
 import com.credit_suisse.drawing.Command
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-internal class CommandLineParserTest {
+class CommandLineParserTest {
     // todo mockito? not to print trash
     private val writer = System.out.bufferedWriter()
     private val logger = ConsoleLogger(writer)
@@ -115,7 +115,7 @@ internal class CommandLineParserTest {
 
     private fun assertCorrectParsing(from: String, to: Command) {
         cmd = parser.parse(from)
-        assertEquals(cmd, to)
+        assertThat(cmd).isEqualTo(to)
     }
 
     @Test
