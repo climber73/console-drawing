@@ -1,40 +1,33 @@
 package com.credit_suisse.drawing.console
 
 import com.credit_suisse.drawing.Canvas
-import com.credit_suisse.drawing.Renderer
-import java.io.OutputStream
+import com.credit_suisse.drawing.CanvasRenderer
+import com.credit_suisse.drawing.Logger
 
 const val HORIZONTAL_BORDER = '-'
 const val VERTICAL_BORDER = '|'
 
-class ConsoleRenderer(
-    out: OutputStream = System.out
-) : Renderer {
+class ConsoleCanvasRenderer(
+    private val logger: Logger
+) : CanvasRenderer {
 
     override fun close() {
-        writer.close()
     }
-
-    private val writer = out.bufferedWriter()
 
     override fun render(c: Canvas?) {
         if (c == null) return
-        writer.append(horizontalBorder(c))
-        writer.newLine()
+        logger.println(horizontalBorder(c))
         //todo simplify:
         val yIterator = c.iterator()
         while (yIterator.hasNext()) {
-            writer.append(VERTICAL_BORDER)
+            logger.print(VERTICAL_BORDER)
             val xIterator = yIterator.next().iterator()
             while (xIterator.hasNext()) {
-                writer.append(xIterator.next())
+                logger.print(xIterator.next())
             }
-            writer.append(VERTICAL_BORDER)
-            writer.newLine()
+            logger.println(VERTICAL_BORDER)
         }
-        writer.append(horizontalBorder(c))
-        writer.newLine()
-        writer.flush()
+        logger.println(horizontalBorder(c))
     }
 
     private fun horizontalBorder(c: Canvas) = HORIZONTAL_BORDER * (c.width + 2)
