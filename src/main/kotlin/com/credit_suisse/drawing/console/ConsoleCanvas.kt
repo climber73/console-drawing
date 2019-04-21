@@ -106,6 +106,6 @@ class ConsoleCanvas(
     }
 
     override fun close() {
-
+        // nothing to do here
     }
 }
