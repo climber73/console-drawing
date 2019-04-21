@@ -5,7 +5,9 @@ import java.lang.NumberFormatException
 
 val SPACE_REGEX = "\\s+".toRegex()
 
-class CommandLineParser {
+class CommandLineParser(
+    private val logger: Logger
+) {
 
     fun parse(line: String): Command {
         // todo test trim, multispaces
@@ -37,7 +39,7 @@ class CommandLineParser {
             |                programs.
             |Q               Should quit the program.
         """.trimIndent()
-        println(s)
+        logger.println(s)
     }
 
     private fun parseCreateCanvas(args: List<String>): Command {
@@ -47,8 +49,7 @@ class CommandLineParser {
             val h = Integer.parseInt(args[1])
             CreateCanvas(w, h)
         } catch (e: NumberFormatException) {
-            // todo log error
-            println(e.message)
+            logger.error(e.message)
             PrintHelp()
         }
     }
@@ -62,8 +63,7 @@ class CommandLineParser {
             val y2 = Integer.parseInt(args[3])
             AddLine(x1, y1, x2, y2)
         } catch (e: NumberFormatException) {
-            // todo log error
-            println(e.message)
+            logger.error(e.message)
             PrintHelp()
         }
     }
@@ -77,8 +77,7 @@ class CommandLineParser {
             val y2 = Integer.parseInt(args[3])
             AddRect(x1, y1, x2, y2)
         } catch (e: NumberFormatException) {
-            // todo log error
-            println(e.message)
+            logger.error(e.message)
             PrintHelp()
         }
     }
@@ -93,8 +92,7 @@ class CommandLineParser {
             val y = Integer.parseInt(args[1])
             BucketFill(x, y, c)
         } catch (e: NumberFormatException) {
-            // todo log error
-            println(e.message)
+            logger.error(e.message)
             PrintHelp()
         }
     }
