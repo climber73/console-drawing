@@ -15,18 +15,18 @@ class ConsoleShapeFactory : ShapeFactory {
         require(c.x1 > 0 && c.y1 > 0 && c.x2 > 0 && c.y2 > 0) { "Coordinates must be positive" }
         require(c.x1 == c.x2 || c.y1 == c.y2) { "Only horizontal and vertical lines are supported currently" }
         return if (c.x1 < c.x2 || c.y1 < c.y2) {
-            Line(Point(c.x1, c.y1), Point(c.x2, c.y2))
+            ConsoleLine(ConsolePoint(c.x1, c.y1), ConsolePoint(c.x2, c.y2))
         } else {
-            Line(Point(c.x2, c.y2), Point(c.x1, c.y1))
+            ConsoleLine(ConsolePoint(c.x2, c.y2), ConsolePoint(c.x1, c.y1))
         }
     }
 
     private fun createRect(c: AddRect): Rect {
         require(c.x1 > 0 && c.y1 > 0 && c.x2 > 0 && c.y2 > 0) { "Coordinates must be positive" }
         return if (c.x1 < c.x2 || c.y1 < c.y2) {
-            Rect(Point(c.x1, c.y1), Point(c.x2, c.y2))
+            ConsoleRect(ConsolePoint(c.x1, c.y1), ConsolePoint(c.x2, c.y2))
         } else {
-            Rect(Point(c.x2, c.y2), Point(c.x1, c.y1))
+            ConsoleRect(ConsolePoint(c.x2, c.y2), ConsolePoint(c.x1, c.y1))
         }
     }
 }

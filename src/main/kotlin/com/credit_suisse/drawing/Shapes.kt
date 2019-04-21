@@ -2,16 +2,24 @@ package com.credit_suisse.drawing
 
 interface Shape {
     fun isFit(c: Canvas): Boolean
+    fun points(): List<Point>
 }
 
-data class Point(val x: Int, val y: Int) : Shape {
+interface Point : Shape {
+    val x: Int
+    val y: Int
     override fun isFit(c: Canvas) = c.contain(this)
+    override fun points() = listOf(this)
 }
 
-data class Line(val p1: Point, val p2: Point) : Shape {
+interface Line : Shape {
+    val p1: Point
+    val p2: Point
     override fun isFit(c: Canvas) = c.contain(p1) && c.contain(p2)
 }
 
-data class Rect(val p1: Point, val p2: Point) : Shape {
+interface Rect : Shape {
+    val p1: Point
+    val p2: Point
     override fun isFit(c: Canvas) = c.contain(p1) && c.contain(p2)
 }
