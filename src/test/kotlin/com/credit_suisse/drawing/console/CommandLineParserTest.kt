@@ -4,7 +4,7 @@ import com.credit_suisse.drawing.Command
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-internal class CommandLineParserTest {
+class CommandLineParserTest {
     // todo mockito? not to print trash
     private val writer = System.out.bufferedWriter()
     private val logger = ConsoleLogger(writer)
