@@ -13,7 +13,7 @@ package com.credit_suisse.drawing
          --------
 */
 
-interface Canvas : Iterable<Iterable<Char>> {
+interface Canvas<T> : Iterable<Iterable<T>> {
     val width: Int
     val height: Int
     fun contain(p: Point): Boolean
