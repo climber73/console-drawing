@@ -1,25 +1,26 @@
 package com.credit_suisse.drawing
 
-interface Shape<C> {
-    fun isFit(c: Canvas<C>): Boolean
-    fun points(): List<Point<C>>
+interface Shape<C, N : Number> {
+    fun isFit(c: Canvas<C, N>): Boolean
+    fun points(): List<Point<C, N>>
 }
 
-interface Point<C> : Shape<C> {
-    val x: Int
-    val y: Int
-    override fun isFit(c: Canvas<C>) = c.contain(this)
+interface Point<C, N : Number> : Shape<C, N> {
+    val x: N
+    val y: N
+    val attr: C
+    override fun isFit(c: Canvas<C, N>) = c.contain(this)
     override fun points() = listOf(this)
 }
 
-interface Line<C> : Shape<C> {
-    val p1: Point<C>
-    val p2: Point<C>
-    override fun isFit(c: Canvas<C>) = c.contain(p1) && c.contain(p2)
+interface Line<C, N : Number> : Shape<C, N> {
+    val p1: Point<C, N>
+    val p2: Point<C, N>
+    override fun isFit(c: Canvas<C, N>) = c.contain(p1) && c.contain(p2)
 }
 
-interface Rect<C> : Shape<C> {
-    val p1: Point<C>
-    val p2: Point<C>
-    override fun isFit(c: Canvas<C>) = c.contain(p1) && c.contain(p2)
+interface Rect<C, N : Number> : Shape<C, N> {
+    val p1: Point<C, N>
+    val p2: Point<C, N>
+    override fun isFit(c: Canvas<C, N>) = c.contain(p1) && c.contain(p2)
 }
