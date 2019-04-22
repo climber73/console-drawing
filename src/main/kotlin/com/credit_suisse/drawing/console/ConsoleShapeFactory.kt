@@ -4,8 +4,9 @@ import com.credit_suisse.drawing.AddShapeCommand
 import com.credit_suisse.drawing.Shape
 import com.credit_suisse.drawing.ShapeFactory
 
-class ConsoleShapeFactory : ShapeFactory<Char, Int> {
-    override fun shape(cmd: AddShapeCommand): Shape<Char, Int> {
+class ConsoleShapeFactory : ShapeFactory<ConsolePoint, Char> {
+
+    override fun shape(cmd: AddShapeCommand): Shape<ConsolePoint, Char> {
         return when (cmd) {
             is AddLine -> createLine(cmd)
             is AddRect -> createRect(cmd)

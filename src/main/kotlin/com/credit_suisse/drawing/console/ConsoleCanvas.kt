@@ -5,17 +5,14 @@ import com.credit_suisse.drawing.*
 const val MAX_WIDTH = 80
 const val MAX_HEIGHT = 80
 
-const val DEFAULT_COLOR = 'x'
 
 class ConsoleCanvas(
-    override val minX: Int,
-    override val minY: Int,
-    override val maxX: Int,
-    override val maxY: Int
-) : Canvas<Char, Int> {
+    override val width: Int,
+    override val height: Int
+) : Canvas<ConsolePoint, Char> {
 
-    override val width: Int = maxX - minX + 1
-    override val height: Int = maxY - minY + 1
+//    override val width: Int = maxX - minX + 1
+//    override val height: Int = maxY - minY + 1
 
     private val state: Array<Array<Char>> // array of rows (not columns), so Y is first coordinate
 
@@ -25,37 +22,44 @@ class ConsoleCanvas(
         state = Array(height) { Array(width) { BLANK_COLOR } }
     }
 
-    override fun contain(p: Point<Char, Int>): Boolean {
-        return p.x in (minX..maxX) && p.y in (minY..maxY)
+    override fun contains(p: ConsolePoint): Boolean {
+        return p.x in (1..width) && p.y in (1..height)
     }
 
-    override fun iterator(): Iterator<Iterable<Char>> {
-        return object : Iterator<Iterable<Char>> {
+    // todo : test!
+    override fun contains(shape: ConsoleShape): Boolean {
+        return shape.points().all { contains(it) }
+    }
+
+    override fun iterator(): Iterator<Iterable<ConsolePoint>> {
+        return object : Iterator<Iterable<ConsolePoint>> {
             private var y = 0
 
             override fun hasNext(): Boolean {
                 return y < height
             }
 
-            override fun next(): Iterable<Char> {
-                return state[y++].asIterable()
+            override fun next(): Iterable<ConsolePoint> {
+                return state[y++].asIterable().mapIndexed { x, color ->
+                    ConsolePoint(x + 1, y + 1, color)
+                }
             }
         }
     }
 
-    override fun add(shape: Shape<Char, Int>) {
-        require(shape.isFit(this)) { "$shape doesn't fit canvas" }
+    override fun add(shape: ConsoleShape) {
+        require(this.contains(shape)) { "$shape doesn't fit canvas" }
         for (p in shape.points()) {
             state[p.y-1][p.x-1] = DEFAULT_COLOR
         }
     }
 
-    override fun bucketFill(p: Point<Char, Int>) {
-        require(contain(p)) { "Point $p doesn't fit canvas" }
+    override fun bucketFill(p: ConsolePoint, c: Char) {
+        require(contains(p)) { "Point $p doesn't fit canvas" }
         val x = p.x
         val y = p.y
         val original = state[y - 1][x - 1]
-        bucketFill(x - 1, y - 1, original, p.attr)
+        bucketFill(x - 1, y - 1, original, c)
     }
 
     private fun bucketFill(x: Int, y: Int, original: Char, c: Char) {

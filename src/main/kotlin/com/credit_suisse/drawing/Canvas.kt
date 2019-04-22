@@ -7,40 +7,35 @@ package com.credit_suisse.drawing
  * Example of canvas 6 x 3 (width = 6, height = 3):
  *
  *      x
- *      123456
+ *       123456
  *      --------
  *  y 1 |      |
  *    2 |      |
  *    3 |      |
  *      --------
  *
- * @param C the type of main attribute of points contained in the canvas (color for example)
- * @param N the numeric type of coordinates in the canvas
+ * @param P the type of points in the canvas
+ * @param C the type of color of points in the canvas
  *
  */
 
-interface Canvas<C, N : Number> : Iterable<Iterable<C>> {
+interface Canvas<P : Point<C>, C> : Iterable<Iterable<P>> { // todo remove double iterable
 
-    val minX: N
+    val width: Int
 
-    val minY: N
-
-    val maxX: N
-
-    val maxY: N
-
-    val width: N
-
-    val height: N
+    val height: Int
 
     // check if canvas contain point p
-    fun contain(p: Point<C, N>): Boolean
+    fun contains(p: P): Boolean
+
+    // check if canvas contain shape sh
+    fun contains(shape: Shape<P, C>): Boolean
 
     // add shape to canvas
-    fun add(shape: Shape<C, N>)
+    fun add(shape: Shape<P, C>)
 
-    // fill the entire area connected to point p with "colour" of the point
-    fun bucketFill(p: Point<C, N>)
+    // fill the entire area connected to point p with color c
+    fun bucketFill(p: P, c: C)
 
     fun close()
 }

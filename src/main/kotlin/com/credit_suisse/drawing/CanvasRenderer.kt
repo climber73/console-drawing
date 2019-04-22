@@ -5,10 +5,10 @@ package com.credit_suisse.drawing
  * A generic canvas renderer
  *
  * @param T the type which will be used to render in
- * @param C the type of main attribute of points contained in the canvas (color for example)
- * @param N the numeric type of coordinates in the canvas
+ * @param P the type of points in the canvas
+ * @param C the type of color of points in the canvas
  *
  */
-interface CanvasRenderer<T, C, N : Number> {
-    fun render(c: Canvas<C, N>?): T
+interface CanvasRenderer<T, P : Point<C>, C> {
+    fun render(c: Canvas<P, C>?): T
 }

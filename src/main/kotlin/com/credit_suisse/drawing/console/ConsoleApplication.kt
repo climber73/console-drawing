@@ -10,7 +10,7 @@ class ConsoleApplication(
     private val input: BufferedReader,
     private val logger: Logger,
     private val parser: CommandLineParser = CommandLineParser(logger),
-    private val factory: ShapeFactory<Char, Int> = ConsoleShapeFactory()
+    private val factory: ShapeFactory<ConsolePoint, Char> = ConsoleShapeFactory()
 ) {
 
     private val renderer = ConsoleCanvasRenderer()
@@ -43,11 +43,7 @@ class ConsoleApplication(
     }
 
     private fun createCanvas(cmd: CreateCanvas) {
-        val minX = 0
-        val minY = 0
-        val maxX = cmd.width
-        val maxY = cmd.height
-        canvas = ConsoleCanvas(minX, minY, maxX, maxY)
+        canvas = ConsoleCanvas(cmd.width, cmd.height)
     }
 
     private fun addShape(cmd: AddShapeCommand) {
@@ -58,7 +54,7 @@ class ConsoleApplication(
 
     private fun bucketFill(cmd: BucketFill) {
         require(canvas != null) { "Canvas should be created before" }
-        val p = ConsolePoint(cmd.x, cmd.y, cmd.c)
-        canvas?.bucketFill(p)
+        val p = ConsolePoint(cmd.x, cmd.y)
+        canvas?.bucketFill(p, cmd.c)
     }
 }
