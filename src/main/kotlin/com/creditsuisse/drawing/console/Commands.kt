@@ -1,7 +1,7 @@
-package com.credit_suisse.drawing.console
+package com.creditsuisse.drawing.console
 
-import com.credit_suisse.drawing.AddShapeCommand
-import com.credit_suisse.drawing.Command
+import com.creditsuisse.drawing.AddShapeCommand
+import com.creditsuisse.drawing.Command
 
 data class CreateCanvas(
     val width: Int,

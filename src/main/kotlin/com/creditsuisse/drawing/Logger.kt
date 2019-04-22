@@ -1,4 +1,4 @@
-package com.credit_suisse.drawing
+package com.creditsuisse.drawing
 
 import java.io.Closeable
 

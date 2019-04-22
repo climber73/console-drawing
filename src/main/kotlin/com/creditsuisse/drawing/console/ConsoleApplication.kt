@@ -1,9 +1,9 @@
-package com.credit_suisse.drawing.console
+package com.creditsuisse.drawing.console
 
-import com.credit_suisse.drawing.AddShapeCommand
-import com.credit_suisse.drawing.Command
-import com.credit_suisse.drawing.Logger
-import com.credit_suisse.drawing.ShapeFactory
+import com.creditsuisse.drawing.AddShapeCommand
+import com.creditsuisse.drawing.Command
+import com.creditsuisse.drawing.Logger
+import com.creditsuisse.drawing.ShapeFactory
 import java.io.BufferedReader
 
 class ConsoleApplication(

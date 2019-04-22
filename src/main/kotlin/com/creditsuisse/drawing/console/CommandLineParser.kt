@@ -1,7 +1,7 @@
-package com.credit_suisse.drawing.console
+package com.creditsuisse.drawing.console
 
-import com.credit_suisse.drawing.Command
-import com.credit_suisse.drawing.Logger
+import com.creditsuisse.drawing.Command
+import com.creditsuisse.drawing.Logger
 import java.lang.NumberFormatException
 
 val SPACE_REGEX = "\\s+".toRegex()

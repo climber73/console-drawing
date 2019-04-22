@@ -1,6 +1,6 @@
-package com.credit_suisse.drawing.console
+package com.creditsuisse.drawing.console
 
-import com.credit_suisse.drawing.Command
+import com.creditsuisse.drawing.Command
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 

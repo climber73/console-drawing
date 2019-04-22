@@ -1,7 +1,7 @@
-package com.credit_suisse.drawing.console
+package com.creditsuisse.drawing.console
 
-import com.credit_suisse.drawing.Canvas
-import com.credit_suisse.drawing.CanvasRenderer
+import com.creditsuisse.drawing.Canvas
+import com.creditsuisse.drawing.CanvasRenderer
 import java.lang.StringBuilder
 
 const val HORIZONTAL_BORDER = '-'

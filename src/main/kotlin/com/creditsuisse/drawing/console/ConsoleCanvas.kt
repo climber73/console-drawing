@@ -1,6 +1,6 @@
-package com.credit_suisse.drawing.console
+package com.creditsuisse.drawing.console
 
-import com.credit_suisse.drawing.*
+import com.creditsuisse.drawing.Canvas
 
 const val MAX_WIDTH = 80
 const val MAX_HEIGHT = 80

@@ -1,4 +1,4 @@
-package com.credit_suisse.drawing.console
+package com.creditsuisse.drawing.console
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
