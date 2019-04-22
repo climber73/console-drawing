@@ -21,7 +21,6 @@ class ConsoleCanvas(
     override fun contains(p: ConsolePoint) =
         p.x in (1..width) && p.y in (1..height)
 
-    // todo : test!
     override fun contains(shape: ConsoleShape) =
         shape.points().all { contains(it) }
 

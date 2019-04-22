@@ -17,42 +17,49 @@ data class ConsolePoint(
 typealias ConsoleShape = Shape<ConsolePoint, Char>
 
 data class ConsoleLine(
-    override val p1: ConsolePoint,
-    override val p2: ConsolePoint,
+    override val x1: Int,
+    override val y1: Int,
+    override val x2: Int,
+    override val y2: Int,
     override val color: Char = DEFAULT_COLOR
 ) : Line<ConsolePoint, Char> {
 
+    init {
+        require(x1 == x2 || y1 == y2) { "Only horizontal and vertical lines are supported currently" }
+    }
+
+    private fun xRange() = if (x1 < x2) x1..x2 else x2..x1
+    private fun yRange() = if (y1 < y2) y1..y2 else y2..y1
+
     override fun contains(p: ConsolePoint) =
-        p.x in p1.x..p2.x && p.y in p1.y..p2.y
+        p.x in xRange() && p.y in yRange()
 
     override fun points(): List<ConsolePoint> {
-        return if (p1.x == p2.x) {
-            (p1.y..p2.y).map { y -> ConsolePoint(p1.x, y) }
+        return if (x1 == x2) {
+            yRange().map { y -> ConsolePoint(x1, y) }
         } else {
-            (p1.x..p2.x).map { x -> ConsolePoint(x, p1.y) }
+            xRange().map { x -> ConsolePoint(x, y1) }
         }
     }
 }
 
 data class ConsoleRect(
-    override val p1: ConsolePoint,
-    override val p2: ConsolePoint,
+    override val x1: Int,
+    override val y1: Int,
+    override val x2: Int,
+    override val y2: Int,
     override val color: Char = DEFAULT_COLOR
 ) : Rect<ConsolePoint, Char> {
 
+    private fun xRange() = if (x1 < x2) x1..x2 else x2..x1
+    private fun yRange() = if (y1 < y2) y1..y2 else y2..y1
+
     override fun contains(p: ConsolePoint) =
-        p.x in p1.x..p2.x && p.y in p1.y..p2.y
+        p.x in xRange() && p.y in yRange()
 
     override fun points(): List<ConsolePoint> {
-        val list = ArrayList<ConsolePoint>()
-        (p1.y..p2.y).forEach { y ->
-            list.add(ConsolePoint(p1.x, y))
-            list.add(ConsolePoint(p2.x, y))
-        }
-        (p1.x..p2.x).forEach { x ->
-            list.add(ConsolePoint(x, p1.y))
-            list.add(ConsolePoint(x, p2.y))
-        }
-        return list
+        val yList = yRange().map { y -> listOf(ConsolePoint(x1, y), ConsolePoint(x2, y)) }
+        val xList = xRange().map { x -> listOf(ConsolePoint(x, y1), ConsolePoint(x, y2)) }
+        return (yList + xList).flatten()
     }
 }

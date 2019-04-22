@@ -12,12 +12,16 @@ interface Shape<P : Point<C>, C> {
     fun contains(p: P): Boolean
 }
 
-interface Line<P : Point<C>, C> : Shape<P, C> {
-    val p1: P
-    val p2: P
+interface Rect<P : Point<C>, C> : Shape<P, C> {
+    val x1: Int
+    val y1: Int
+    val x2: Int
+    val y2: Int
 }
 
-interface Rect<P : Point<C>, C> : Shape<P, C> {
-    val p1: P
-    val p2: P
+interface Line<P : Point<C>, C> : Shape<P, C> {
+    val x1: Int
+    val y1: Int
+    val x2: Int
+    val y2: Int
 }
