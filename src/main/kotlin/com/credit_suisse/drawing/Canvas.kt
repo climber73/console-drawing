@@ -19,7 +19,7 @@ package com.credit_suisse.drawing
  *
  */
 
-interface Canvas<P : Point<C>, C> : Iterable<Iterable<P>> { // todo remove double iterable
+interface Canvas<P : Point<C>, C> : Iterable<C> {
 
     val width: Int
 

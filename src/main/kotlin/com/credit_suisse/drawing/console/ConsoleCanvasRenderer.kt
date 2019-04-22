@@ -13,20 +13,20 @@ class ConsoleCanvasRenderer : CanvasRenderer<String, ConsolePoint, Char> {
         if (c == null) return ""
         val sb = StringBuilder()
         sb.append(horizontalBorder(c))
-        c.forEach { raw ->
-            sb.append(VERTICAL_BORDER)
-            raw.forEach { sb.append(it.color) }
-            sb.append("$VERTICAL_BORDER\n")
+
+        c.forEachIndexed { i, color ->
+
+            if (i % c.width == 0) {
+                sb.append(VERTICAL_BORDER)
+            }
+
+            sb.append(color)
+
+            if ((i + 1) % c.width == 0) {
+                sb.append("$VERTICAL_BORDER\n")
+            }
+
         }
-//        val yIterator = c.iterator()
-//        while (yIterator.hasNext()) {
-//            sb.append(VERTICAL_BORDER)
-//            val xIterator = yIterator.next().iterator()
-//            while (xIterator.hasNext()) {
-//                sb.append(xIterator.next())
-//            }
-//            sb.append("$VERTICAL_BORDER\n")
-//        }
         sb.append(horizontalBorder(c))
         return sb.toString()
     }

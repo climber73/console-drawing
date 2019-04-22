@@ -11,9 +11,6 @@ class ConsoleCanvas(
     override val height: Int
 ) : Canvas<ConsolePoint, Char> {
 
-//    override val width: Int = maxX - minX + 1
-//    override val height: Int = maxY - minY + 1
-
     private val state: Array<Array<Char>> // array of rows (not columns), so Y is first coordinate
 
     init {
@@ -31,18 +28,22 @@ class ConsoleCanvas(
         return shape.points().all { contains(it) }
     }
 
-    override fun iterator(): Iterator<Iterable<ConsolePoint>> {
-        return object : Iterator<Iterable<ConsolePoint>> {
+    override fun iterator(): Iterator<Char> {
+        return object : Iterator<Char> {
             private var y = 0
+            private var x = 0
 
             override fun hasNext(): Boolean {
-                return y < height
+                return y < height && x < width
             }
 
-            override fun next(): Iterable<ConsolePoint> {
-                return state[y++].asIterable().mapIndexed { x, color ->
-                    ConsolePoint(x + 1, y + 1, color)
+            override fun next(): Char {
+                val next = state[y][x++]
+                if (x >= width) {
+                    x = 0
+                    y++
                 }
+                return next
             }
         }
     }
