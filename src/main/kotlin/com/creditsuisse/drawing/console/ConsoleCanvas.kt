@@ -3,11 +3,12 @@ package com.creditsuisse.drawing.console
 import com.creditsuisse.drawing.Canvas
 
 const val MAX_WIDTH = 80
-const val MAX_HEIGHT = 80
+const val MAX_HEIGHT = 20
 
 class ConsoleCanvas(
     override val width: Int,
-    override val height: Int
+    override val height: Int,
+    private val color: Char = BLANK_COLOR
 ) : Canvas<ConsolePoint, Char> {
 
     private val state: Array<Char> // rows of points go one by one
@@ -15,7 +16,7 @@ class ConsoleCanvas(
     init {
         require(width in 1..MAX_WIDTH) { "Canvas width should be in [1..$MAX_WIDTH]" }
         require(height in 1..MAX_HEIGHT) { "Canvas height should be in [1..$MAX_HEIGHT]" }
-        state = Array(height * width) { BLANK_COLOR }
+        state = Array(height * width) { color }
     }
 
     override fun contains(p: ConsolePoint) =

@@ -25,16 +25,24 @@ interface Canvas<P : Point<C>, C> : Iterable<C> {
 
     val height: Int
 
-    // check if canvas contain point p
+    /**
+     *  check if canvas contain point p
+     */
     fun contains(p: P): Boolean
 
-    // check if canvas contain shape sh
+    /**
+     *  check if canvas contain shape
+     */
     fun contains(shape: Shape<P, C>): Boolean
 
-    // add shape to canvas
+    /**
+     *  add shape to canvas
+     */
     fun add(shape: Shape<P, C>)
 
-    // fill the entire area connected to point p with color c
+    /**
+     *  fill the entire area connected to point p with color c
+     */
     fun bucketFill(p: P, c: C)
 
     fun close()
