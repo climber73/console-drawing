@@ -1,7 +1,8 @@
 package com.creditsuisse.drawing.console
 
-import com.creditsuisse.drawing.AddShapeCommand
-import com.creditsuisse.drawing.Command
+const val DEFAULT_COLOR = 'x'
+
+interface Command
 
 data class CreateCanvas(
     val width: Int,
@@ -12,15 +13,17 @@ data class AddLine(
     val x1: Int,
     val y1: Int,
     val x2: Int,
-    val y2: Int
-) : AddShapeCommand
+    val y2: Int,
+    val c: Char = DEFAULT_COLOR
+) : Command
 
 data class AddRect(
     val x1: Int,
     val y1: Int,
     val x2: Int,
-    val y2: Int
-) : AddShapeCommand
+    val y2: Int,
+    val c: Char = DEFAULT_COLOR
+) : Command
 
 data class BucketFill(
     val x: Int,

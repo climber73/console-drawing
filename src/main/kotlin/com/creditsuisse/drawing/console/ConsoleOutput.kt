@@ -1,18 +1,13 @@
 package com.creditsuisse.drawing.console
 
-import com.creditsuisse.drawing.Logger
+import com.creditsuisse.drawing.Output
 import java.io.BufferedWriter
 
-class ConsoleLogger(
+class ConsoleOutput(
     private val writer: BufferedWriter
-) : Logger {
+) : Output {
 
-    override fun info(s: String?) {
-        if (s == null) return
-        println("INFO: $s")
-    }
-
-    override fun error(s: String?) {
+    override fun printError(s: String?) {
         if (s == null) return
         println("ERROR: $s")
     }
@@ -24,17 +19,6 @@ class ConsoleLogger(
 
     override fun println(s: String) {
         writer.write(s)
-        writer.newLine()
-        writer.flush()
-    }
-
-    override fun print(c: Char) {
-        writer.append(c)
-        writer.flush()
-    }
-
-    override fun println(c: Char) {
-        writer.append(c)
         writer.newLine()
         writer.flush()
     }

@@ -69,41 +69,41 @@ internal class ConsoleCanvasRendererTest {
         )
     }
 
-    @Test
-    fun `render canvas with lines`() {
-        canvas = ConsoleCanvas(3, 3)
-        canvas.add(ConsoleLine(1, 1, 3, 1))
-        canvas.add(ConsoleLine(2, 1, 2, 3))
-        assertThat(renderer.render(canvas)).isEqualTo(
-            """
-                -----
-                |xxx|
-                | x |
-                | x |
-                -----
-
-                """.trimIndent()
-        )
-    }
-
-    @Test
-    fun `render canvas with rectangles`() {
-        canvas = ConsoleCanvas(7, 7)
-        canvas.add(ConsoleRect(1, 1, 5, 5))
-        canvas.add(ConsoleRect(3, 3, 7, 7))
-        assertThat(renderer.render(canvas)).isEqualTo(
-            """
-                ---------
-                |xxxxx  |
-                |x   x  |
-                |x xxxxx|
-                |x x x x|
-                |xxxxx x|
-                |  x   x|
-                |  xxxxx|
-                ---------
-
-                """.trimIndent()
-        )
-    }
+//    @Test
+//    fun `render canvas with lines`() {
+//        canvas = ConsoleCanvas(3, 3)
+//        canvas.add(ConsoleLine(1, 1, 3, 1))
+//        canvas.add(ConsoleLine(2, 1, 2, 3))
+//        assertThat(renderer.render(canvas)).isEqualTo(
+//            """
+//                -----
+//                |xxx|
+//                | x |
+//                | x |
+//                -----
+//
+//                """.trimIndent()
+//        )
+//    }
+//
+//    @Test
+//    fun `render canvas with rectangles`() {
+//        canvas = ConsoleCanvas(7, 7)
+//        canvas.add(ConsoleRect(1, 1, 5, 5))
+//        canvas.add(ConsoleRect(3, 3, 7, 7))
+//        assertThat(renderer.render(canvas)).isEqualTo(
+//            """
+//                ---------
+//                |xxxxx  |
+//                |x   x  |
+//                |x xxxxx|
+//                |x x x x|
+//                |xxxxx x|
+//                |  x   x|
+//                |  xxxxx|
+//                ---------
+//
+//                """.trimIndent()
+//        )
+//    }
 }

@@ -1,13 +1,12 @@
 package com.creditsuisse.drawing.console
 
-import com.creditsuisse.drawing.Command
-import com.creditsuisse.drawing.Logger
+import com.creditsuisse.drawing.Output
 import java.lang.NumberFormatException
 
 val SPACE_REGEX = "\\s+".toRegex()
 
 class CommandLineParser(
-    private val logger: Logger
+    private val output: Output
 ) {
 
     fun parse(line: String): Command {
@@ -25,11 +24,11 @@ class CommandLineParser(
 
     fun printHelp(cmdType: Class<out Command>) {
         when (cmdType) {
-            CreateCanvas::class.java -> logger.println("$HELP_HEADER\n$C")
-            AddLine::class.java -> logger.println("$HELP_HEADER\n$L")
-            AddRect::class.java -> logger.println("$HELP_HEADER\n$R")
-            BucketFill::class.java -> logger.println("$HELP_HEADER\n$B")
-            else -> logger.println(FULL_HELP)
+            CreateCanvas::class.java -> output.println("$HELP_HEADER\n$C")
+            AddLine::class.java -> output.println("$HELP_HEADER\n$L")
+            AddRect::class.java -> output.println("$HELP_HEADER\n$R")
+            BucketFill::class.java -> output.println("$HELP_HEADER\n$B")
+            else -> output.println(FULL_HELP)
         }
     }
 
@@ -40,7 +39,7 @@ class CommandLineParser(
             val h = Integer.parseInt(args[1])
             CreateCanvas(w, h)
         } catch (e: NumberFormatException) {
-            logger.error(e.message)
+            output.printError(e.message)
             PrintHelp(CreateCanvas::class.java)
         }
     }
@@ -54,7 +53,7 @@ class CommandLineParser(
             val y2 = Integer.parseInt(args[3])
             AddLine(x1, y1, x2, y2)
         } catch (e: NumberFormatException) {
-            logger.error(e.message)
+            output.printError(e.message)
             PrintHelp(AddLine::class.java)
         }
     }
@@ -68,7 +67,7 @@ class CommandLineParser(
             val y2 = Integer.parseInt(args[3])
             AddRect(x1, y1, x2, y2)
         } catch (e: NumberFormatException) {
-            logger.error(e.message)
+            output.printError(e.message)
             PrintHelp(AddRect::class.java)
         }
     }
@@ -82,7 +81,7 @@ class CommandLineParser(
             val y = Integer.parseInt(args[1])
             BucketFill(x, y, c)
         } catch (e: NumberFormatException) {
-            logger.error(e.message)
+            output.printError(e.message)
             PrintHelp(BucketFill::class.java)
         }
     }

@@ -1,38 +1,37 @@
 package com.creditsuisse.drawing.console
 
-import com.creditsuisse.drawing.AddShapeCommand
-import com.creditsuisse.drawing.Command
-import com.creditsuisse.drawing.Logger
-import com.creditsuisse.drawing.ShapeFactory
+import com.creditsuisse.drawing.*
 import java.io.BufferedReader
 
 class ConsoleApplication(
     private val input: BufferedReader,
-    private val logger: Logger,
-    private val parser: CommandLineParser = CommandLineParser(logger),
-    private val factory: ShapeFactory<ConsolePoint, Char> = ConsoleShapeFactory()
+    private val output: Output,
+    private val parser: CommandLineParser = CommandLineParser(output),
+    private val factory: ShapeFactory = ShapeFactory()
 ) {
 
     private val renderer = ConsoleCanvasRenderer()
-    private var canvas: ConsoleCanvas? = null
+    private val projectionFactory = ConsoleProjectionFactory()
 
     fun run() {
+        var canvas: Canvas<Char>? = null
         while (true) {
-            logger.print(renderer.render(canvas))
-            logger.println("Enter command (H for help):")
+            output.print(renderer.render(canvas))
+            output.println("Enter command (H for help):")
             val line = input.readLine()
             var cmd: Command = PrintHelp()
             try {
                 cmd = parser.parse(line)
                 when (cmd) {
-                    is CreateCanvas -> createCanvas(cmd)
-                    is AddShapeCommand -> addShape(cmd)
-                    is BucketFill -> bucketFill(cmd)
+                    is CreateCanvas -> canvas = createCanvas(cmd)
+                    is AddLine -> drawLine(canvas, cmd)
+                    is AddRect -> drawRect(canvas, cmd)
+                    is BucketFill -> bucketFill(canvas, cmd)
                     is PrintHelp -> printHelp(cmd)
                     is Quit -> return
                 }
             } catch (e: IllegalArgumentException) {
-                logger.error(e.message)
+                output.printError(e.message)
                 printHelp(PrintHelp(cmd::class.java))
             }
         }
@@ -42,19 +41,31 @@ class ConsoleApplication(
         parser.printHelp(cmd.cmdType)
     }
 
-    private fun createCanvas(cmd: CreateCanvas) {
-        canvas = ConsoleCanvas(cmd.width, cmd.height)
+    private fun createCanvas(cmd: CreateCanvas): Canvas<Char> {
+        return ConsoleCanvas(cmd.width, cmd.height)
     }
 
-    private fun addShape(cmd: AddShapeCommand) {
+    private fun drawLine(canvas: Canvas<Char>?, cmd: AddLine) {
         require(canvas != null) { "Canvas should be created before" }
-        val shape = factory.shape(cmd)
-        canvas?.add(shape)
+        val line = factory.line(cmd.x1, cmd.y1, cmd.x2, cmd.y2)
+        val points = projectionFactory.points(line)
+        for (p in points) {
+            canvas.set(p, cmd.c)
+        }
     }
 
-    private fun bucketFill(cmd: BucketFill) {
+    private fun drawRect(canvas: Canvas<Char>?, cmd: AddRect) {
         require(canvas != null) { "Canvas should be created before" }
-        val p = ConsolePoint(cmd.x, cmd.y)
-        canvas?.bucketFill(p, cmd.c)
+        val rect = factory.rect(cmd.x1, cmd.y1, cmd.x2, cmd.y2)
+        val points = projectionFactory.points(rect)
+        for (p in points) {
+            canvas.set(p, cmd.c)
+        }
+    }
+
+    private fun bucketFill(canvas: Canvas<Char>?, cmd: BucketFill) {
+        require(canvas != null) { "Canvas should be created before" }
+        val p = Point(cmd.x, cmd.y)
+        canvas.bucketFill(p, cmd.c)
     }
 }

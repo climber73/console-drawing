@@ -1,13 +1,13 @@
 package com.creditsuisse.drawing.console
 
-import com.creditsuisse.drawing.Logger
+import com.creditsuisse.drawing.Output
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
 fun main() {
     input().use { input ->
-        logger().use { logger ->
-            val loop = ConsoleApplication(input, logger)
+        output().use { output ->
+            val loop = ConsoleApplication(input, output)
             loop.run()
         }
     }
@@ -18,8 +18,8 @@ private fun input(): BufferedReader {
     return BufferedReader(streamReader)
 }
 
-private fun logger(): Logger {
+private fun output(): Output {
     val writer = System.out.bufferedWriter()
-    return ConsoleLogger(writer)
+    return ConsoleOutput(writer)
 }
 

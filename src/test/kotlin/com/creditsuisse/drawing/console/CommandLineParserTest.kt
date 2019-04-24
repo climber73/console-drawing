@@ -1,13 +1,12 @@
 package com.creditsuisse.drawing.console
 
-import com.creditsuisse.drawing.Command
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class CommandLineParserTest {
     // todo mockito? not to print trash
     private val writer = System.out.bufferedWriter()
-    private val logger = ConsoleLogger(writer)
+    private val logger = ConsoleOutput(writer)
     private val parser = CommandLineParser(logger)
     private lateinit var cmd: Command
 

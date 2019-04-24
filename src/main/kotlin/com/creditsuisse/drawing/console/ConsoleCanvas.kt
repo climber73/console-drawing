@@ -1,15 +1,19 @@
 package com.creditsuisse.drawing.console
 
 import com.creditsuisse.drawing.Canvas
+import com.creditsuisse.drawing.Point
+import com.creditsuisse.drawing.Shape
 
 const val MAX_WIDTH = 80
 const val MAX_HEIGHT = 20
+
+const val BLANK_COLOR = ' '  // todo
 
 class ConsoleCanvas(
     override val width: Int,
     override val height: Int,
     private val color: Char = BLANK_COLOR
-) : Canvas<ConsolePoint, Char> {
+) : Canvas<Char> {
 
     private val state: Array<Char> // rows of points go one by one
 
@@ -19,22 +23,17 @@ class ConsoleCanvas(
         state = Array(height * width) { color }
     }
 
-    override fun contains(p: ConsolePoint) =
+    private fun contains(p: Point) =
         p.x in (1..width) && p.y in (1..height)
-
-    override fun contains(shape: ConsoleShape) =
-        shape.points().all { contains(it) }
 
     override fun iterator() = state.iterator()
 
-    override fun add(shape: ConsoleShape) {
-        require(this.contains(shape)) { "$shape doesn't fit canvas" }
-        for (p in shape.points()) {
-            state[(p.y-1)*width + (p.x-1)] = DEFAULT_COLOR
-        }
+    override fun set(p: Point, c: Char) {
+        require(this.contains(p)) { "$p doesn't fit canvas" }
+        state[(p.y-1)*width + (p.x-1)] = c
     }
 
-    override fun bucketFill(p: ConsolePoint, c: Char) {
+    override fun bucketFill(p: Point, c: Char) {
         require(contains(p)) { "Point $p doesn't fit canvas" }
         val x = p.x
         val y = p.y

@@ -2,36 +2,23 @@ package com.creditsuisse.drawing.console
 
 import com.creditsuisse.drawing.Canvas
 import com.creditsuisse.drawing.CanvasRenderer
-import java.lang.StringBuilder
 
-const val HORIZONTAL_BORDER = '-'
-const val VERTICAL_BORDER = '|'
+const val HB = '-'
+const val VB = '|'
 
-class ConsoleCanvasRenderer : CanvasRenderer<String, ConsolePoint, Char> {
+class ConsoleCanvasRenderer : CanvasRenderer<String, Char> {
 
-    override fun render(c: Canvas<ConsolePoint, Char>?): String {
+    override fun render(c: Canvas<Char>?): String {
         if (c == null) return ""
-        val sb = StringBuilder()
-        sb.append(horizontalBorder(c))
-
-        c.forEachIndexed { i, color ->
-
-            if (i % c.width == 0) {
-                sb.append(VERTICAL_BORDER)
-            }
-
-            sb.append(color)
-
-            if ((i + 1) % c.width == 0) {
-                sb.append("$VERTICAL_BORDER\n")
-            }
-
-        }
-        sb.append(horizontalBorder(c))
-        return sb.toString()
+        return divider(c) + body(c) + divider(c)
     }
 
-    private fun horizontalBorder(c: Canvas<ConsolePoint, Char>) = "${HORIZONTAL_BORDER * (c.width + 2)}\n"
+    private fun body(c: Canvas<Char>) =
+        c.chunked(c.width).joinToString("") { raw ->
+            "$VB${raw.joinToString("")}$VB\n"
+        }
+
+    private fun divider(c: Canvas<Char>) = "${HB * (c.width + 2)}\n"
 
     private operator fun Char.times(n: Int) = this.toString().repeat(n)
 }

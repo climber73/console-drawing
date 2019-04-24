@@ -14,36 +14,25 @@ package com.creditsuisse.drawing
  *    3 |      |
  *      --------
  *
- * @param P the type of points in the canvas
- * @param C the type of color of points in the canvas
+ * @param C the type of pattern of points in the canvas
  *
  */
 
-interface Canvas<P : Point<C>, C> : Iterable<C> {
+interface Canvas<C> : Iterable<C> {
 
     val width: Int
 
     val height: Int
 
     /**
-     *  check if canvas contain point p
+     *  set point on the canvas to the color c
      */
-    fun contains(p: P): Boolean
+    fun set(p: Point, c: C)
 
     /**
-     *  check if canvas contain shape
+     *  fill the entire area connected to point p with pattern c
      */
-    fun contains(shape: Shape<P, C>): Boolean
-
-    /**
-     *  add shape to canvas
-     */
-    fun add(shape: Shape<P, C>)
-
-    /**
-     *  fill the entire area connected to point p with color c
-     */
-    fun bucketFill(p: P, c: C)
+    fun bucketFill(p: Point, c: C)
 
     fun close()
 }
