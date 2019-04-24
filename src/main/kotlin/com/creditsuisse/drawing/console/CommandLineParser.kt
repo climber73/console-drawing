@@ -1,5 +1,6 @@
 package com.creditsuisse.drawing.console
 
+import com.creditsuisse.drawing.Command
 import com.creditsuisse.drawing.Output
 import java.lang.NumberFormatException
 
@@ -24,65 +25,65 @@ class CommandLineParser(
 
     fun printHelp(cmdType: Class<out Command>) {
         when (cmdType) {
-            CreateCanvas::class.java -> output.println("$HELP_HEADER\n$C")
-            AddLine::class.java -> output.println("$HELP_HEADER\n$L")
-            AddRect::class.java -> output.println("$HELP_HEADER\n$R")
-            BucketFill::class.java -> output.println("$HELP_HEADER\n$B")
+            CreateConsoleCanvas::class.java -> output.println("$HELP_HEADER\n$C")
+            AddConsoleLine::class.java -> output.println("$HELP_HEADER\n$L")
+            AddConsoleRect::class.java -> output.println("$HELP_HEADER\n$R")
+            ConsoleBucketFill::class.java -> output.println("$HELP_HEADER\n$B")
             else -> output.println(FULL_HELP)
         }
     }
 
     private fun parseCreateCanvas(args: List<String>): Command {
-        if (args.size != 2) return PrintHelp(CreateCanvas::class.java)
+        if (args.size != 2) return PrintHelp(CreateConsoleCanvas::class.java)
         return try {
             val w = Integer.parseInt(args[0])
             val h = Integer.parseInt(args[1])
-            CreateCanvas(w, h)
+            CreateConsoleCanvas(w, h)
         } catch (e: NumberFormatException) {
             output.printError(e.message)
-            PrintHelp(CreateCanvas::class.java)
+            PrintHelp(CreateConsoleCanvas::class.java)
         }
     }
 
     private fun parseAddLine(args: List<String>): Command {
-        if (args.size != 4) return PrintHelp(AddLine::class.java)
+        if (args.size != 4) return PrintHelp(AddConsoleLine::class.java)
         return try {
             val x1 = Integer.parseInt(args[0])
             val y1 = Integer.parseInt(args[1])
             val x2 = Integer.parseInt(args[2])
             val y2 = Integer.parseInt(args[3])
-            AddLine(x1, y1, x2, y2)
+            AddConsoleLine(x1, y1, x2, y2)
         } catch (e: NumberFormatException) {
             output.printError(e.message)
-            PrintHelp(AddLine::class.java)
+            PrintHelp(AddConsoleLine::class.java)
         }
     }
 
     private fun parseAddRect(args: List<String>): Command {
-        if (args.size != 4) return PrintHelp(AddRect::class.java)
+        if (args.size != 4) return PrintHelp(AddConsoleRect::class.java)
         return try {
             val x1 = Integer.parseInt(args[0])
             val y1 = Integer.parseInt(args[1])
             val x2 = Integer.parseInt(args[2])
             val y2 = Integer.parseInt(args[3])
-            AddRect(x1, y1, x2, y2)
+            AddConsoleRect(x1, y1, x2, y2)
         } catch (e: NumberFormatException) {
             output.printError(e.message)
-            PrintHelp(AddRect::class.java)
+            PrintHelp(AddConsoleRect::class.java)
         }
     }
 
     private fun parseBucketFill(args: List<String>): Command {
-        if (args.size != 3 || args[2].length != 1) return PrintHelp(BucketFill::class.java)
+        if (args.size != 3 || args[2].length != 1) return PrintHelp(ConsoleBucketFill::class.java)
         // todo check if char printable
         val c = args[2].first()
         return try {
             val x = Integer.parseInt(args[0])
             val y = Integer.parseInt(args[1])
-            BucketFill(x, y, c)
+            ConsoleBucketFill(x, y, c)
         } catch (e: NumberFormatException) {
             output.printError(e.message)
-            PrintHelp(BucketFill::class.java)
+            PrintHelp(ConsoleBucketFill::class.java)
         }
     }
 }

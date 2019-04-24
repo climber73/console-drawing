@@ -7,8 +7,7 @@ import java.io.InputStreamReader
 fun main() {
     input().use { input ->
         output().use { output ->
-            val loop = ConsoleApplication(input, output)
-            loop.run()
+            ConsoleLoop(input, output).run()
         }
     }
 }
