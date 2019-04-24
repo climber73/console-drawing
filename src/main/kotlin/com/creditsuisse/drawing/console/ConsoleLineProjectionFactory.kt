@@ -4,6 +4,7 @@ import com.creditsuisse.drawing.Line
 import com.creditsuisse.drawing.Point
 import com.creditsuisse.drawing.Rect
 
+// todo rename
 class ConsoleProjectionFactory {
 
     fun points(shape: Line): List<Point> {

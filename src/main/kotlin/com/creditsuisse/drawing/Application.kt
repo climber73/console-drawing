@@ -1,7 +1,12 @@
 package com.creditsuisse.drawing
 
 /**
- * can be extended by UNDO ...
+ *
+ *  Application class
+ *
+ *  Encapsulates application's state (canvas). State can be changed by commands
+ *  Another commands can be added later
+ *
  */
 interface Application<T, C> {
 

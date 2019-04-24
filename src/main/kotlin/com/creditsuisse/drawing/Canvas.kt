@@ -25,7 +25,7 @@ interface Canvas<C> : Iterable<C> {
     val height: Int
 
     /**
-     *  set point on the canvas to the color c
+     *  set pattern of the point p on the canvas to the pattern c
      */
     fun set(p: Point, c: C)
 

@@ -75,7 +75,6 @@ class CommandLineParser(
 
     private fun parseBucketFill(args: List<String>): Command {
         if (args.size != 3 || args[2].length != 1) return PrintHelp(ConsoleBucketFill::class.java)
-        // todo check if char printable
         val c = args[2].first()
         return try {
             val x = Integer.parseInt(args[0])

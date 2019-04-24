@@ -9,7 +9,6 @@ class ShapeFactory<C> {
 
     fun rect(cmd: AddRect<C>): Rect {
         require(cmd.x1 > 0 && cmd.y1 > 0 && cmd.x2 > 0 && cmd.y2 > 0) { "Coordinates must be positive" }
-        // todo min max....
         return Rect(Point(cmd.x1, cmd.y1), Point(cmd.x2, cmd.y2))
     }
 }

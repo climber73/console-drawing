@@ -4,7 +4,7 @@ package com.creditsuisse.drawing
  *
  * A generic canvas renderer
  *
- * @param T the type which will be used to render in
+ * @param T the type in which to render canvas
  * @param C the type of pattern of points in the canvas
  *
  */

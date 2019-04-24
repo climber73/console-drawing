@@ -2,7 +2,6 @@ package com.creditsuisse.drawing.console
 
 import com.creditsuisse.drawing.Canvas
 import com.creditsuisse.drawing.Point
-import com.creditsuisse.drawing.Shape
 
 const val MAX_WIDTH = 80
 const val MAX_HEIGHT = 20

@@ -4,8 +4,8 @@ import com.creditsuisse.drawing.*
 
 class ConsoleApplication(
     private val renderer: ConsoleCanvasRenderer = ConsoleCanvasRenderer(),
-    private val projectionFactory: ConsoleProjectionFactory = ConsoleProjectionFactory(),
-    private val factory: ShapeFactory<Char> = ShapeFactory<Char>()
+    private val factory: ShapeFactory<Char> = ShapeFactory<Char>(),
+    private val projectionFactory: ConsoleProjectionFactory = ConsoleProjectionFactory()
 ) : Application<String, Char> {
 
     private var canvas: Canvas<Char>? = null
