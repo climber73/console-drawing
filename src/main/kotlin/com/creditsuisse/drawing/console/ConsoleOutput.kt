@@ -2,14 +2,15 @@ package com.creditsuisse.drawing.console
 
 import com.creditsuisse.drawing.Output
 import java.io.BufferedWriter
+import java.lang.Exception
 
 class ConsoleOutput(
     private val writer: BufferedWriter
 ) : Output {
 
-    override fun printError(s: String?) {
-        if (s == null) return
-        println("ERROR: $s")
+    override fun printError(e: Exception) {
+        println("ERROR: ${e.message}")
+        e.printStackTrace()
     }
 
     override fun print(s: String) {

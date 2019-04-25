@@ -10,13 +10,13 @@ package com.creditsuisse.drawing
  */
 interface Application<T, C> {
 
-    fun createCanvas(cmd: CreateCanvas)
+    fun createCanvas(width: Int, height: Int)
 
-    fun addLine(cmd: AddLine<C>)
+    fun addLine(line: Line, c: C)
 
-    fun addRect(cmd: AddRect<C>)
+    fun addRect(rect: Rect, c: C)
 
-    fun bucketFill(cmd: BucketFill<C>)
+    fun bucketFill(p: Point, c: C)
 
     fun state(): T
 

@@ -30,6 +30,11 @@ interface Canvas<C> : Iterable<C> {
     fun set(p: Point, c: C)
 
     /**
+     *  draw shape with pattern c on the canvas
+     */
+    fun draw(shape: Shape, c: C)
+
+    /**
      *  fill the entire area connected to point p with pattern c
      */
     fun bucketFill(p: Point, c: C)

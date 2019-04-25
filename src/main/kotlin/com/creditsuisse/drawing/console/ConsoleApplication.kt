@@ -2,40 +2,36 @@ package com.creditsuisse.drawing.console
 
 import com.creditsuisse.drawing.*
 
+const val BLANK_COLOR = ' '
+
 class ConsoleApplication(
-    private val renderer: ConsoleCanvasRenderer = ConsoleCanvasRenderer(),
-    private val factory: ShapeFactory<Char> = ShapeFactory<Char>(),
-    private val projectionFactory: ConsoleProjectionFactory = ConsoleProjectionFactory()
+    private val renderer: ConsoleCanvasRenderer = ConsoleCanvasRenderer()
 ) : Application<String, Char> {
 
     private var canvas: Canvas<Char>? = null
 
-    override fun createCanvas(cmd: CreateCanvas) {
-        canvas = ConsoleCanvas(cmd.width, cmd.height)
+    override fun createCanvas(width: Int, height: Int) {
+        canvas = DefaultCanvas<Char>(
+            width = width,
+            height = height,
+            state = Array<Char>(height * width) { BLANK_COLOR },
+            converter = ConsoleShapeConverter()
+        )
     }
 
-    override fun addLine(cmd: AddLine<Char>) {
+    override fun addLine(line: Line, c: Char) {
         require(canvas != null) { "Canvas should be created before" }
-        val line = factory.line(cmd)
-        val points = projectionFactory.points(line)
-        for (p in points) {
-            canvas!!.set(p, cmd.c)
-        }
+        canvas!!.draw(line, c)
     }
 
-    override fun addRect(cmd: AddRect<Char>) {
+    override fun addRect(rect: Rect, c: Char) {
         require(canvas != null) { "Canvas should be created before" }
-        val rect = factory.rect(cmd)
-        val points = projectionFactory.points(rect)
-        for (p in points) {
-            canvas!!.set(p, cmd.c)
-        }
+        canvas!!.draw(rect, c)
     }
 
-    override fun bucketFill(cmd: BucketFill<Char>) {
+    override fun bucketFill(p: Point, c: Char) {
         require(canvas != null) { "Canvas should be created before" }
-        val p = Point(cmd.x, cmd.y)
-        canvas!!.bucketFill(p, cmd.c)
+        canvas!!.bucketFill(p, c)
     }
 
     override fun state(): String {

@@ -1,35 +1,35 @@
 package com.creditsuisse.drawing.console
 
-import com.creditsuisse.drawing.*
-
 const val DEFAULT_COLOR = 'x'
 
-data class CreateConsoleCanvas(
-    override val width: Int,
-    override val height: Int
-) : CreateCanvas
+interface Command
 
-data class AddConsoleLine(
-    override val x1: Int,
-    override val y1: Int,
-    override val x2: Int,
-    override val y2: Int,
-    override val c: Char = DEFAULT_COLOR
-) : AddLine<Char>
+data class CreateCanvas(
+    val width: Int,
+    val height: Int
+) : Command
 
-data class AddConsoleRect(
-    override val x1: Int,
-    override val y1: Int,
-    override val x2: Int,
-    override val y2: Int,
-    override val c: Char = DEFAULT_COLOR
-) : AddRect<Char>
+data class AddLine(
+    val x1: Int,
+    val y1: Int,
+    val x2: Int,
+    val y2: Int,
+    val c: Char = DEFAULT_COLOR
+) : Command
 
-data class ConsoleBucketFill(
-    override val x: Int,
-    override val y: Int,
-    override val c: Char
-) : BucketFill<Char>
+data class AddRect(
+    val x1: Int,
+    val y1: Int,
+    val x2: Int,
+    val y2: Int,
+    val c: Char = DEFAULT_COLOR
+) : Command
+
+data class BucketFill(
+    val x: Int,
+    val y: Int,
+    val c: Char
+) : Command
 
 class Quit : Command
 
