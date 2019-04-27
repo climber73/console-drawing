@@ -25,9 +25,21 @@ class ConsoleShapeConverter : ShapeConverter {
     }
 
     private fun points(rect: Rect): List<Point> {
-        return (rect.yMin()..rect.yMax()).flatMap { y ->
-            (rect.xMin()..rect.xMax()).map { x ->
-                Point(x, y)
+        val xMin = rect.xMin()
+        val xMax = rect.xMax()
+        val yMin = rect.yMin()
+        val yMax = rect.yMax()
+        return when {
+            xMin == xMax -> (yMin..yMax).map { y -> Point(xMin, y) }
+            yMin == yMax -> (xMin..xMax).map { x -> Point(x, yMin) }
+            else -> {
+                (yMin..yMax).map { y ->
+                    if (y == yMin || y == yMax)
+                        (xMin..xMax).map { x -> Point(x, y) }
+                    else {
+                        listOf(Point(xMin, y), Point(xMax, y))
+                    }
+                }.flatten()
             }
         }
     }

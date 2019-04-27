@@ -1,5 +1,9 @@
 package com.creditsuisse.drawing.console
 
+import com.creditsuisse.drawing.Canvas
+import com.creditsuisse.drawing.Line
+import com.creditsuisse.drawing.Point
+import com.creditsuisse.drawing.Rect
 import org.junit.Test
 import org.assertj.core.api.Assertions.assertThat
 
@@ -8,7 +12,7 @@ internal operator fun String.times(n: Int) = this.repeat(n)
 
 internal class ConsoleCanvasRendererTest {
 
-    private lateinit var canvas: ConsoleCanvas
+    private lateinit var canvas: Canvas<Char>
     private var renderer: ConsoleCanvasRenderer = ConsoleCanvasRenderer()
 
     @Test
@@ -69,41 +73,41 @@ internal class ConsoleCanvasRendererTest {
         )
     }
 
-//    @Test
-//    fun `render canvas with lines`() {
-//        canvas = ConsoleCanvas(3, 3)
-//        canvas.add(ConsoleLine(1, 1, 3, 1))
-//        canvas.add(ConsoleLine(2, 1, 2, 3))
-//        assertThat(renderer.render(canvas)).isEqualTo(
-//            """
-//                -----
-//                |xxx|
-//                | x |
-//                | x |
-//                -----
-//
-//                """.trimIndent()
-//        )
-//    }
-//
-//    @Test
-//    fun `render canvas with rectangles`() {
-//        canvas = ConsoleCanvas(7, 7)
-//        canvas.add(ConsoleRect(1, 1, 5, 5))
-//        canvas.add(ConsoleRect(3, 3, 7, 7))
-//        assertThat(renderer.render(canvas)).isEqualTo(
-//            """
-//                ---------
-//                |xxxxx  |
-//                |x   x  |
-//                |x xxxxx|
-//                |x x x x|
-//                |xxxxx x|
-//                |  x   x|
-//                |  xxxxx|
-//                ---------
-//
-//                """.trimIndent()
-//        )
-//    }
+    @Test
+    fun `render canvas with lines`() {
+        canvas = ConsoleCanvas(3, 3)
+        canvas.drawLine(1, 1, 3, 1)
+        canvas.drawLine(2, 1, 2, 3)
+        assertThat(renderer.render(canvas)).isEqualTo(
+            """
+                -----
+                |xxx|
+                | x |
+                | x |
+                -----
+
+                """.trimIndent()
+        )
+    }
+
+    @Test
+    fun `render canvas with rectangles`() {
+        canvas = ConsoleCanvas(7, 7)
+        canvas.drawRect(1, 1, 5, 5)
+        canvas.drawRect(3, 3, 7, 7, 'y')
+        assertThat(renderer.render(canvas)).isEqualTo(
+            """
+                ---------
+                |xxxxx  |
+                |x   x  |
+                |x yyyyy|
+                |x y x y|
+                |xxyxx y|
+                |  y   y|
+                |  yyyyy|
+                ---------
+
+                """.trimIndent()
+        )
+    }
 }

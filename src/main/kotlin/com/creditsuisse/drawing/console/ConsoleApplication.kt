@@ -2,8 +2,6 @@ package com.creditsuisse.drawing.console
 
 import com.creditsuisse.drawing.*
 
-const val BLANK_COLOR = ' '
-
 class ConsoleApplication(
     private val renderer: ConsoleCanvasRenderer = ConsoleCanvasRenderer()
 ) : Application<String, Char> {
@@ -11,12 +9,7 @@ class ConsoleApplication(
     private var canvas: Canvas<Char>? = null
 
     override fun createCanvas(width: Int, height: Int) {
-        canvas = DefaultCanvas<Char>(
-            width = width,
-            height = height,
-            state = Array<Char>(height * width) { BLANK_COLOR },
-            converter = ConsoleShapeConverter()
-        )
+        canvas = ConsoleCanvas(width, height)
     }
 
     override fun addLine(line: Line, c: Char) {

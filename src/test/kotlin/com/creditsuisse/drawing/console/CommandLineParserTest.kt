@@ -1,13 +1,12 @@
 package com.creditsuisse.drawing.console
 
+import com.creditsuisse.drawing.DefaultOutput
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class CommandLineParserTest {
-    // todo mockito? not to state trash
-    private val writer = System.out.bufferedWriter()
-    private val logger = ConsoleOutput(writer)
-    private val parser = CommandLineParser(logger)
+    private val output = DefaultOutput(null)
+    private val parser = CommandLineParser(output)
     private lateinit var cmd: Command
 
     @Test
@@ -117,8 +116,4 @@ class CommandLineParserTest {
         assertThat(cmd).isEqualTo(to)
     }
 
-    @Test
-    fun printHelp() {
-        // todo?
-    }
 }

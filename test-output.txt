@@ -1,0 +1,92 @@
+Enter command (H for help):
+---------------------------
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+---------------------------
+Enter command (H for help):
+---------------------------
+|                         |
+|                         |
+|  xxxxxxxx               |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+|                         |
+---------------------------
+Enter command (H for help):
+---------------------------
+|                         |
+|                         |
+|  xxxxxxxxxxxxx          |
+|         x    x          |
+|         x    x          |
+|         x    x          |
+|         xxxxxx          |
+|                         |
+|                         |
+|                         |
+---------------------------
+Enter command (H for help):
+---------------------------
+|                      xxx|
+|                      x x|
+|  xxxxxxxxxxxxx       xxx|
+|         x    x          |
+|         x    x          |
+|         x    x          |
+|         xxxxxx          |
+|                         |
+|                         |
+|                         |
+---------------------------
+Enter command (H for help):
+---------------------------
+|                      xxx|
+|                      x x|
+|  zzzzzzzzzzzzz       xxx|
+|         z    z          |
+|         z    z          |
+|         z    z          |
+|         zzzzzz          |
+|                         |
+|                         |
+|                         |
+---------------------------
+Enter command (H for help):
+---------------------------
+|                      xxx|
+|                      x x|
+|  zzzzzzzzzzzzz       xxx|
+|         z    z          |
+|         z    z          |
+|         z    z          |
+|         zzzzzz          |
+|              x          |
+|              x          |
+|              x          |
+---------------------------
+Enter command (H for help):
+---------------------------
+|ooooooooooooooooooooooxxx|
+|oooooooooooooooooooooox x|
+|oozzzzzzzzzzzzzoooooooxxx|
+|oooooooooz    zoooooooooo|
+|oooooooooz    zoooooooooo|
+|oooooooooz    zoooooooooo|
+|ooooooooozzzzzzoooooooooo|
+|ooooooooooooooxoooooooooo|
+|ooooooooooooooxoooooooooo|
+|ooooooooooooooxoooooooooo|
+---------------------------
+Enter command (H for help):

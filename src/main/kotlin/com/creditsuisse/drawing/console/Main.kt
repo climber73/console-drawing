@@ -1,5 +1,6 @@
 package com.creditsuisse.drawing.console
 
+import com.creditsuisse.drawing.DefaultOutput
 import com.creditsuisse.drawing.Output
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -19,6 +20,5 @@ private fun input(): BufferedReader {
 
 private fun output(): Output {
     val writer = System.out.bufferedWriter()
-    return ConsoleOutput(writer)
+    return DefaultOutput(writer)
 }
-

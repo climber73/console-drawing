@@ -1,10 +1,13 @@
 package com.creditsuisse.drawing
 
-class DefaultCanvas<C>(
-    override val width: Int,
-    override val height: Int,
-    private val state: Array<C>, // rows of points go one by one
-    private val converter: ShapeConverter
+/**
+ *  Canvas backed by array of elements of C type
+ */
+abstract class AbstractCanvas<C>(
+    final override val width: Int,
+    final override val height: Int,
+    private val converter: ShapeConverter,
+    private val state: Array<C>  // rows of points go one by one
 ) : Canvas<C> {
 
     init {
